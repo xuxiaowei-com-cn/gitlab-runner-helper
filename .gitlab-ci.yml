@@ -7,10 +7,10 @@ docker-build:
   services:
     - docker:dind
   script:
-    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-3b6f852e
+    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-7178588d
   after_script:
     - docker images
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-3b6f852e $DOCKER_USERNAME/gitlab-runner-helper:x86_64-3b6f852e
+    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-7178588d $DOCKER_USERNAME/gitlab-runner-helper:x86_64-7178588d
     - docker images
-    - docker push $DOCKER_USERNAME/gitlab-runner-helper:x86_64-3b6f852e
+    - docker push $DOCKER_USERNAME/gitlab-runner-helper:x86_64-7178588d
