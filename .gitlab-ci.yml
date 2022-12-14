@@ -1,0 +1,16 @@
+stages:
+  - docker-build
+
+docker-build:
+  stage: docker-build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v14.8.0
+  after_script:
+    - docker images
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v14.8.0 $DOCKER_USERNAME/gitlab-runner-helper:x86_64-v14.8.0
+    - docker images
+    - docker push $DOCKER_USERNAME/gitlab-runner-helper:x86_64-v14.8.0
