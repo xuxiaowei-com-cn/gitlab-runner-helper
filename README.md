@@ -92,8 +92,8 @@
     <img alt="total lines" src="https://tokei.rs/b1/github/xuxiaowei-com-cn/gitlab-runner-helper">
   </a>
 
-  <a target="_blank" href="https://hub.docker.com/r/xuxiaoweicomcn/git">
-    <img alt="Docker Image Version (latest semver)" src="https://img.shields.io/docker/v/xuxiaoweicomcn/git">
+  <a target="_blank" href="https://hub.docker.com/r/xuxiaoweicomcn/gitlab-runner-helper">
+    <img alt="Docker Image Version (latest semver)" src="https://img.shields.io/docker/v/xuxiaoweicomcn/gitlab-runner-helper">
   </a>
 
   <a target="_blank" href="https://www.apache.org/licenses/LICENSE-2.0">
