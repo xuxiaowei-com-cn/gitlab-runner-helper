@@ -7,11 +7,11 @@ docker-build:
   services:
     - docker:dind
   script:
-    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:s390x-v15.7.0 && PULL_RESULT="ok"
+    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:ppc64le-v15.7.0 && PULL_RESULT="ok"
     - if [ "$PULL_RESULT" == "ok" ]; then echo '拉取完成'; else echo '拉取失败' && xxxx; fi
   after_script:
     - docker images
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:s390x-v15.7.0 $DOCKER_USERNAME/gitlab-runner-helper:s390x-v15.7.0
+    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:ppc64le-v15.7.0 $DOCKER_USERNAME/gitlab-runner-helper:ppc64le-v15.7.0
     - docker images
-    - docker push $DOCKER_USERNAME/gitlab-runner-helper:s390x-v15.7.0
+    - docker push $DOCKER_USERNAME/gitlab-runner-helper:ppc64le-v15.7.0
