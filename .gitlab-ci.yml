@@ -1,17 +1,30 @@
 stages:
+  - docker-build-before
   - docker-build
+
+docker-build-before:
+  stage: docker-build-before
+  image: python:latest
+  script:
+    - pip install requests
+    - python tags.py
+    - ls
+  artifacts:
+    paths:
+      - tags.sh
 
 docker-build:
   stage: docker-build
   image: docker:latest
   services:
     - docker:dind
+  needs:
+    - job: docker-build-before
+      artifacts: true
   script:
-    - docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-v15.7.0 && PULL_RESULT="ok"
-    - if [ "$PULL_RESULT" == "ok" ]; then echo '拉取完成'; else echo '拉取失败' && xxxx; fi
-  after_script:
     - docker images
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-    - docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-v15.7.0 $DOCKER_USERNAME/gitlab-runner-helper:arm64-v15.7.0
-    - docker images
-    - docker push $DOCKER_USERNAME/gitlab-runner-helper:arm64-v15.7.0
+    - ls
+    - chmod +x tags.sh
+    - ls
+    - ./tags.sh
