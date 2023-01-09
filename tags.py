@@ -9,6 +9,15 @@ archs = ['x86_64', 'arm64', 'arm', 's390x', 'ppc64le']
 tags_url = 'https://gitlab.com/api/v4/projects/250833/repository/tags'
 # 从环境变量中获取参数
 num = os.getenv("num")
+print(f'num={num}')
+page = os.getenv("page")
+print(f'page={page}')
+
+if num is not None:
+    num = int(num)
+if page is not None:
+    page = int(page)
+    tags_url += f'?page={page}'
 
 resp = requests.get(tags_url)
 
@@ -24,10 +33,18 @@ i = 0
 for tag in resp_json:
     i = i + 1
     for arch in archs:
-        msg = f"docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['name']}"
+        image = f"registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['name']}"
+        msg = f"docker pull {image} || echo '不存在：{image}'"
         print(msg)
         file.write(msg)
         file.write('\n')
+
+        image = f"registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['commit']['short_id']}"
+        msg = f"docker pull {image} || echo '不存在：{image}'"
+        print(msg)
+        file.write(msg)
+        file.write('\n')
+
     if num is not None and i >= num:
         break
 
@@ -37,22 +54,17 @@ i = 0
 for tag in resp_json:
     i = i + 1
     for arch in archs:
-        msg = f"docker tag registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['name']} $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['name']}"
+        image = f"registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['name']}"
+        msg = f"docker tag image $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['name']} || echo '打标签失败：{image}'"
         print(msg)
         file.write(msg)
         file.write('\n')
-    if num is not None and i >= num:
-        break
 
-file.write('\n')
-
-i = 0
-for tag in resp_json:
-    i = i + 1
-    for arch in archs:
-        msg = f"docker push $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['name']}"
+        image = f"registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['commit']['short_id']}"
+        msg = f"docker tag {image} $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['commit']['short_id']} || echo '打标签失败：{image}'"
         print(msg)
         file.write(msg)
         file.write('\n')
+
     if num is not None and i >= num:
         break

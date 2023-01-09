@@ -26,5 +26,8 @@ docker-build:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
     - ls
     - chmod +x tags.sh
-    - ls
+    - chmod +x tags_push.sh
     - ./tags.sh
+    - docker images
+    - docker images "$DOCKER_USERNAME"
+    - ./tags_push.sh
