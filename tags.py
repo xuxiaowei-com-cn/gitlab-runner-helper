@@ -55,7 +55,7 @@ for tag in resp_json:
     i = i + 1
     for arch in archs:
         image = f"registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:{arch}-{tag['name']}"
-        msg = f"docker tag image $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['name']} || echo '打标签失败：{image}'"
+        msg = f"docker tag {image} $DOCKER_USERNAME/gitlab-runner-helper:{arch}-{tag['name']} || echo '打标签失败：{image}'"
         print(msg)
         file.write(msg)
         file.write('\n')
