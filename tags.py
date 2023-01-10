@@ -5,8 +5,10 @@ import requests
 # 平台
 archs = ['x86_64', 'arm64', 'arm', 's390x', 'ppc64le']
 # 获取 https://gitlab.com/gitlab-org/gitlab-runner/ 最新20个标签的 URL
+# 获取项目ID：https://gitlab.com/api/v4/projects/gitlab-org%2Fgitlab-runner
 # 250833：是项目 https://gitlab.com/gitlab-org/gitlab-runner/ 的 ID
 # 参见议题：https://gitlab.com/xuxiaowei-com-cn/gitlab-runner-helper/-/issues/1
+# tags_url = 'https://gitlab.com/api/v4/projects/gitlab-org%2Fgitlab-runner/repository/tags'
 tags_url = 'https://gitlab.com/api/v4/projects/250833/repository/tags'
 # 从环境变量中获取参数
 num = os.getenv("num")
