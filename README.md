@@ -101,6 +101,15 @@
   </a>
 </div>
 
+## 项目说明
+
+1. docker 镜像 [gitlab/gitlab-runner-helper](https://hub.docker.com/r/gitlab/gitlab-runner-helper/tags) 在 2022-06-28 到
+   2023-01-19 未发布任何镜像
+2. 本人在 2022-12-14
+   创建的此项目，用于拉取 [registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper](https://registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper)
+   中的镜像，并上传到 [xuxiaoweicomcn/gitlab-runner-helper](https://hub.docker.com/r/xuxiaoweicomcn/gitlab-runner-helper)
+   ，供国内用户下载以支持 GitLab Runner 的配置
+
 ## 批量添加远端仓库地址
 
 <details>
